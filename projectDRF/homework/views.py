@@ -2,6 +2,8 @@ from datetime import datetime
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from projectDRF.serialazer import CalculatorSerializer
+
 
 @api_view(http_method_names=['GET'])
 def hello_world(request):
@@ -29,5 +31,16 @@ def today(request):
 @api_view(http_method_names=['POST'])
 def calculator(request):
     data = request.data
-    return Response(data)
+    serializer = CalculatorSerializer(data=data)
+    serializer.is_valid(raise_exception=True)
+    operation = serializer.validated_data
+    if operation['action'] == "plus":
+        res = operation['number1'] + operation['number2']
+    elif operation['action'] == 'minus':
+        res = operation['number1'] - operation['number2']
+    elif operation['action'] == 'divide':
+        res = operation['number1'] / operation['number2']
+    elif operation['action'] == 'multiply':
+        res = operation['number1'] * operation['number2']
+    return Response({"Result": res})
 
