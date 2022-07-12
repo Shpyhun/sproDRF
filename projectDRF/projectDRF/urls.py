@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from homework.views import hello_world, my_name, today, calculator, stores, create_store
+from homework.views import hello_world, my_name, today, calculator, StoreApiView
 
 
 urlpatterns = [
@@ -26,6 +26,5 @@ urlpatterns = [
     path('my_name/', my_name, name='my_name'),
     path('today/', today, name='today'),
     path('calculator/', calculator, name='calculator'),
-    path('stores/', stores, name='stores'),
-    path('create_store/', create_store, name='create_store'),
+    path('stores/', StoreApiView.as_view(), name='stores'),
 ]
