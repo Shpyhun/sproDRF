@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from homework.models import Store
+from .models import Store
 
 
 class CalculatorSerializer(serializers.Serializer):

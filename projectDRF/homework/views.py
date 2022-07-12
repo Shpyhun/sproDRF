@@ -1,12 +1,12 @@
 from datetime import datetime
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
-from projectDRF.serialazer import CalculatorSerializer, StoreSerializer
 from rest_framework.status import HTTP_201_CREATED
 from rest_framework.views import APIView
 
 from .models import Store
+from .serialazer import CalculatorSerializer, StoreSerializer
 
 
 @api_view(http_method_names=['GET'])
