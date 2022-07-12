@@ -2,7 +2,10 @@ from datetime import datetime
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from projectDRF.serialazer import CalculatorSerializer
+from projectDRF.serialazer import CalculatorSerializer, StoreSerializer
+from rest_framework.status import HTTP_201_CREATED
+
+from .models import Store
 
 
 @api_view(http_method_names=['GET'])
@@ -44,3 +47,17 @@ def calculator(request):
         res = operation['number1'] * operation['number2']
     return Response({"Result": res})
 
+
+@api_view(http_method_names=['GET'])
+def stores(request):
+    stores = Store.objects.all()
+    serializer = StoreSerializer(stores, many=True)
+    return Response(serializer.data)
+
+
+@api_view(http_method_names=['POST'])
+def create_store(request):
+    serializer = StoreSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response(status=HTTP_201_CREATED, data=serializer.data)
